@@ -1,5 +1,6 @@
 (() => {
   let gameContainer;
+  let floatingButton;
 
   // Inject Styles
   const injectStyles = () => {
@@ -9,22 +10,19 @@
       #quiz-popup {
         display: none;
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.7);
+        bottom: 20px;
+        right: 20px;
+        width: 350px;
+        height: auto;
+        background: white;
         z-index: 9999;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
 
       .quiz-modal {
-        background: white;
         padding: 20px;
-        width: 300px;
-        margin: 10% auto;
         text-align: center;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
 
       .quiz-modal h2 {
@@ -50,6 +48,27 @@
         color: red;
         cursor: pointer;
         text-decoration: underline;
+      }
+
+      /* Floating Button Styles */
+      #quiz-floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9998;
+        background: #0078ff;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      #quiz-floating-button:hover {
+        background: #005fcc;
       }
     `;
     document.head.appendChild(style);
@@ -84,6 +103,17 @@
     });
   };
 
+  // Create Floating Button
+  const createFloatingButton = () => {
+    floatingButton = document.createElement('button');
+    floatingButton.id = 'quiz-floating-button';
+    floatingButton.innerText = '🎮';
+    floatingButton.title = 'Start Quiz';
+    document.body.appendChild(floatingButton);
+
+    floatingButton.addEventListener('click', showGame);
+  };
+
   // Show Game Popup
   const showGame = () => {
     if (!gameContainer) {
@@ -102,7 +132,7 @@
   // Expose to Global Scope
   window.showGame = showGame;
 
-  // Load Styles
+  // Load Styles and Floating Button
   injectStyles();
+  createFloatingButton();
 })();
-
